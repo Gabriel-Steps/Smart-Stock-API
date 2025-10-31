@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SmartStockBackend.Application.Services;
+using SmartStockBackend.Application.Services.UserServices;
 using SmartStockBackend.Infra;
 using System.Text;
 
@@ -37,6 +39,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+#region Services
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IUserService, UserService>();
+#endregion
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -48,6 +55,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

@@ -17,11 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\SmartStockBackend.Application\SmartStockBackend.Application.csproj" />
+    <ProjectReference Include="..\SmartStockBackend.Infra\SmartStockBackend.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartStockBackend.Infra\SmartStockBackend.Infra.csproj" />
+    <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
 
 </Project>
