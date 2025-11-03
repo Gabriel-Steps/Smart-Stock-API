@@ -133,10 +133,10 @@ The **AI module** (built with **ML.NET**) will analyze product consumption histo
 
 ### Steps to Run
 ```bash
-C:\seu\caminho> git clone https://github.com/Gabriel-Steps/Smart-Stock-API
-C:\seu\caminho> cd Smart-Stock-API
-C:\seu\caminho\Smart-Stock-API> dotnet restore
-C:\seu\caminho\Smart-Stock-API> dotnet ef database update
-C:\seu\caminho\Smart-Stock-API> cd SmartStockBackend.API
-C:\seu\caminho\Smart-Stock-API\SmartStockBackend.API> dotnet run
+C:\your\directory> git clone https://github.com/Gabriel-Steps/Smart-Stock-API
+C:\your\directory> cd Smart-Stock-API
+C:\your\directory\Smart-Stock-API> dotnet restore
+C:\your\directory\Smart-Stock-API> dotnet ef database update
+C:\your\directory\Smart-Stock-API> cd SmartStockBackend.API
+C:\your\directory\Smart-Stock-API\SmartStockBackend.API> dotnet run
 ```
