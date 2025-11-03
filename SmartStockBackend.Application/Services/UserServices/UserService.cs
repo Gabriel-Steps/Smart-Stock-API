@@ -10,12 +10,12 @@ namespace SmartStockBackend.Application.Services.UserServices
 {
     public interface IUserService
     {
-        public Task<AccessUserViewDto> Register(RegisterUserInputDto model);
-        public Task<AccessUserViewDto> Login(LoginUserInputDto model);
-        public Task<List<User>> GetAll();
-        public Task<GetUserDataByIdViewDto> GetById(int id);
-        public Task Update(int id, UpdateUserInputDto model);
-        public Task Delete(int id);
+        public Task<AccessUserViewDto> Register(RegisterUserInputDto model, CancellationToken cancellationToken);
+        public Task<AccessUserViewDto> Login(LoginUserInputDto model, CancellationToken cancellationToken);
+        public Task<List<UserDataView>> GetAll(CancellationToken cancellationToken);
+        public Task<GetUserDataByIdViewDto> GetById(int id, CancellationToken cancellationToken);
+        public Task Update(int id, UpdateUserInputDto model, CancellationToken cancellationToken);
+        public Task Delete(int id, CancellationToken cancellationToken);
     }
     public class UserService : IUserService
     {
@@ -28,23 +28,31 @@ namespace SmartStockBackend.Application.Services.UserServices
             _tokenService = tokenService;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int id, CancellationToken cancellationToken)
         {
-            var data = await _context.Users.FirstOrDefaultAsync(u => u.Id == id)
+            var data = await _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken)
                 ?? throw new UserNotFoundByIdException(id);
             _context.Users.Remove(data);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<UserDataView>> GetAll(CancellationToken cancellationToken)
         {
-            var data = await _context.Users.ToListAsync();
+            var data = await _context.Users
+                .Select(u => new UserDataView
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Email = u.Email,
+                    Phone = u.Phone,
+                    ImageUrl = u.ImageUrl
+                }).ToListAsync(cancellationToken);
             return data;
         }
 
-        public async Task<GetUserDataByIdViewDto> GetById(int id)
+        public async Task<GetUserDataByIdViewDto> GetById(int id, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id)
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken)
                 ?? throw new UserNotFoundByIdException(id);
             return new GetUserDataByIdViewDto
             {
@@ -56,9 +64,9 @@ namespace SmartStockBackend.Application.Services.UserServices
             };
         }
 
-        public async Task<AccessUserViewDto> Login(LoginUserInputDto model)
+        public async Task<AccessUserViewDto> Login(LoginUserInputDto model, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email)
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email, cancellationToken)
                 ?? throw new UserNotFoundException(model.Email);
             bool passwordValid = BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash);
             if (!passwordValid)
@@ -73,7 +81,7 @@ namespace SmartStockBackend.Application.Services.UserServices
             };
         }
 
-        public async Task<AccessUserViewDto> Register(RegisterUserInputDto model)
+        public async Task<AccessUserViewDto> Register(RegisterUserInputDto model, CancellationToken cancellationToken)
         {
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
@@ -98,7 +106,7 @@ namespace SmartStockBackend.Application.Services.UserServices
             };
         }
 
-        public async Task Update(int id, UpdateUserInputDto model)
+        public async Task Update(int id, UpdateUserInputDto model, CancellationToken cancellationToken)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id)
                 ?? throw new UserNotFoundByIdException(id);

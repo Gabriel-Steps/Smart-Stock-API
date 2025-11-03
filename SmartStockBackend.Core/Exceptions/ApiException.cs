@@ -1,7 +1,15 @@
-﻿namespace SmartStockBackend.Core.Exceptions
+﻿using System.Net;
+
+namespace SmartStockBackend.Core.Exceptions
 {
     public class ApiException : Exception
     {
-        public ApiException(string message) : base(message) { }
+        public HttpStatusCode StatusCode { get; }
+
+        protected ApiException(string message, HttpStatusCode statusCode)
+            : base(message)
+        {
+            StatusCode = statusCode;
+        }
     }
 }

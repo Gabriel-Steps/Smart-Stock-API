@@ -1,10 +1,14 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SmartStockBackend.API.Middlewares;
 using SmartStockBackend.Application.Services;
 using SmartStockBackend.Application.Services.UserServices;
 using SmartStockBackend.Infra;
 using System.Text;
+using FluentValidation.AspNetCore;
+using SmartStockBackend.Application.Validations.UserValidations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +48,11 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 #endregion
 
+#region FluentValidations
+builder.Services.AddValidatorsFromAssemblyContaining<LoginUserInputDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserInputDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateUserInputDtoValidator>();
+#endregion
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -53,6 +62,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 

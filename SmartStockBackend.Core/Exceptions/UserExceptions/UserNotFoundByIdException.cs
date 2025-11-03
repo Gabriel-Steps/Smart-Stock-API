@@ -1,8 +1,10 @@
-﻿namespace SmartStockBackend.Core.Exceptions.UserExceptions
+﻿using System.Net;
+
+namespace SmartStockBackend.Core.Exceptions.UserExceptions
 {
     public class UserNotFoundByIdException : ApiException
     {
         public UserNotFoundByIdException(int id) 
-            : base($"User with ID {id} not found") { }
+            : base($"User with ID {id} not found", HttpStatusCode.NotFound) { }
     }
 }
