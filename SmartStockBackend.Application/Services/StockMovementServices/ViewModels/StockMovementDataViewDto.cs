@@ -1,15 +1,12 @@
 ﻿using SmartStockBackend.Core.Enums;
 
-namespace SmartStockBackend.Core.Entities
+namespace SmartStockBackend.Application.Services.StockMovementServices.ViewModels
 {
-    public class StockMovement
+    public class StockMovementDataViewDto
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
         public MovementTypeStockMovementEnum Type { get; set; }
         public int Quantity { get; set; }
         public DateTime MovementDate { get; set; }
-
-        public Product Product { get; set; }
     }
 }

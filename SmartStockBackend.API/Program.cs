@@ -7,8 +7,11 @@ using SmartStockBackend.Application.Services;
 using SmartStockBackend.Application.Services.UserServices;
 using SmartStockBackend.Infra;
 using System.Text;
-using FluentValidation.AspNetCore;
 using SmartStockBackend.Application.Validations.UserValidations;
+using SmartStockBackend.Application.Services.ProductServices;
+using SmartStockBackend.Application.Validations.ProductValidations;
+using SmartStockBackend.Application.Services.StockMovementServices;
+using SmartStockBackend.Application.Validations.StockMovementValidations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,12 +49,24 @@ builder.Services.AddAuthentication(options =>
 #region Services
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IStockMovementService, StockMovementService>();
 #endregion
 
 #region FluentValidations
+
+
+// User service input validations
 builder.Services.AddValidatorsFromAssemblyContaining<LoginUserInputDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserInputDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateUserInputDtoValidator>();
+
+// Product service input validations
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductInputValidatorDto>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateProductInputValidatorDto>();
+
+// Stock Movement service input validations
+builder.Services.AddValidatorsFromAssemblyContaining<CreateStockMovementInputDtoValidator>();
 #endregion
 var app = builder.Build();
 

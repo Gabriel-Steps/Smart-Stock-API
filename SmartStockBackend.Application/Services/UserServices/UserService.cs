@@ -33,7 +33,7 @@ namespace SmartStockBackend.Application.Services.UserServices
             var data = await _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken)
                 ?? throw new UserNotFoundByIdException(id);
             _context.Users.Remove(data);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<List<UserDataView>> GetAll(CancellationToken cancellationToken)
@@ -94,8 +94,8 @@ namespace SmartStockBackend.Application.Services.UserServices
                 PasswordHash = passwordHash
             };
 
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            await _context.Users.AddAsync(user, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             var token = _tokenService.GenerateToken(user);
             return new AccessUserViewDto
@@ -108,7 +108,7 @@ namespace SmartStockBackend.Application.Services.UserServices
 
         public async Task Update(int id, UpdateUserInputDto model, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id)
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken)
                 ?? throw new UserNotFoundByIdException(id);
             user.Name = model.Name;
             user.Email = model.Email;
@@ -116,7 +116,7 @@ namespace SmartStockBackend.Application.Services.UserServices
             user.ImageUrl = model.ImageUrl;
 
             _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

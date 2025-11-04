@@ -7,7 +7,7 @@ using SmartStockBackend.Core.Models;
 
 namespace SmartStockBackend.API.Controllers
 {
-    [ApiController, Route("api/users")]
+    [ApiController, Route("api/users"), Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
