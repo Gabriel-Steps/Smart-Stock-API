@@ -76,7 +76,7 @@ public class StockMovement {
     public Product Product { get; set; }
 }
 
-public enum MovementType {
+public enum MovementTypeStockMovementEnum {
     Entry = 1,
     Exit = 2
 }
