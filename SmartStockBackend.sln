@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartStockBackend.Infra", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartStockBackend.Application", "SmartStockBackend.Application\SmartStockBackend.Application.csproj", "{69D91CBE-F5E0-4E9A-A64E-AA87093F9A39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartStockBackend.Tests", "SmartStockBackend.Tests\SmartStockBackend.Tests.csproj", "{441725BE-0BDB-4193-B317-CC077D6DC7E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{69D91CBE-F5E0-4E9A-A64E-AA87093F9A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69D91CBE-F5E0-4E9A-A64E-AA87093F9A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69D91CBE-F5E0-4E9A-A64E-AA87093F9A39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{441725BE-0BDB-4193-B317-CC077D6DC7E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{441725BE-0BDB-4193-B317-CC077D6DC7E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{441725BE-0BDB-4193-B317-CC077D6DC7E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{441725BE-0BDB-4193-B317-CC077D6DC7E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

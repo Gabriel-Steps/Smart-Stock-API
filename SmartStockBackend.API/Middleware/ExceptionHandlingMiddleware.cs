@@ -28,8 +28,9 @@ namespace SmartStockBackend.API.Middlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unhandled exception occurred.");
-                await HandleExceptionAsync(context, HttpStatusCode.InternalServerError, "An unexpected error occurred.");
+                _logger.LogError(ex, "Unhandled exception occurred: {Message}", ex.Message);
+                Console.WriteLine($"[ERROR] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}");
+                await HandleExceptionAsync(context, HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 

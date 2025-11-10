@@ -68,7 +68,15 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateProductInputValidator
 // Stock Movement service input validations
 builder.Services.AddValidatorsFromAssemblyContaining<CreateStockMovementInputDtoValidator>();
 #endregion
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SmartStockDbContext>();
+    db.Database.EnsureCreated();
+    SmartStockBackend.Infra.Seed.SmartStockDbSeeder.Seed(db);
+}
 
 if (app.Environment.IsDevelopment())
 {

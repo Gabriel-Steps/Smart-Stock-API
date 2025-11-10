@@ -12,7 +12,7 @@ using SmartStockBackend.Infra;
 namespace SmartStockBackend.Infra.Migrations
 {
     [DbContext(typeof(SmartStockDbContext))]
-    [Migration("20251030181609_v.0.0.1")]
+    [Migration("20251107230331_v.0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
