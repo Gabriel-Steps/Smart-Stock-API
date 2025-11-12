@@ -2,8 +2,7 @@
 
 namespace SmartStockBackend.API.Controllers
 {
-    [Route("api/image")]
-    [ApiController]
+    [ApiController, Route("api/image")]
     public class ImageController : ControllerBase
     {
         [HttpPost("upload-image")]

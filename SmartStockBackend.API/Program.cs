@@ -12,6 +12,7 @@ using SmartStockBackend.Application.Services.ProductServices;
 using SmartStockBackend.Application.Validations.ProductValidations;
 using SmartStockBackend.Application.Services.StockMovementServices;
 using SmartStockBackend.Application.Validations.StockMovementValidations;
+using SmartStockBackend.Application.Services.DemandPredictionServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,7 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IStockMovementService, StockMovementService>();
+builder.Services.AddScoped<IDemandPredictionService, DemandPredictionService>();
 #endregion
 
 #region FluentValidations
