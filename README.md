@@ -40,7 +40,6 @@ Smart Stock follows the principles of **Clean Architecture**, ensuring scalabili
 | **ORM** | Entity Framework Core |
 | **Database** | SQL Server |
 | **Authentication** | JWT (JSON Web Token) |
-| **Machine Learning** | ML.NET *(for future AI forecasting module)* |
 | **Architecture** | Clean Architecture + Repository Pattern |
 | **Testing** | xUnit |
 | **Documentation** | Swagger / OpenAPI |
@@ -108,19 +107,6 @@ public class User {
     public string Role { get; set; } = "User";
 }
 ```
-
----
-
-## 🧠 Demand Forecasting Logic
-The **AI module** (built with **ML.NET**) will analyze product consumption history to predict when each product will run out of stock.
-
-**Simplified workflow:**
-
-1. Retrieve product movement history (type = Exit)
-2. Calculate average daily usage
-3. Train ML.NET regression model based on daily consumption
-4. Predict future depletion days
-5. Save results in **DemandPrediction** and generate notifications
 
 ---
 
